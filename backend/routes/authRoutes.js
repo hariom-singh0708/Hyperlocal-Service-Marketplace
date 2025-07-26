@@ -66,15 +66,24 @@ router.post("/login", async (req, res) => {
     if (role === "user") userDoc = await User.findOne({ email });
     else if (role === "provider") userDoc = await Provider.findOne({ email });
     else if (role === "admin") {
-      // Admin is hardcoded
-      if (email === "admin@market.com" && password === "admin123") {
+      if (email === "admin1@gmail.com" && password === "12345") {
         const token = jwt.sign({ id: "admin-id", role: "admin" }, SECRET, {
           expiresIn: "1d",
         });
-        return res.json({ token, role: "admin" });
+        return res.json({
+          token,
+          role: "admin",
+          user: {
+            _id: "admin-id",
+            name: "Hariom Singh",
+            email: "admin1@gmail.com",
+          },
+        });
       } else {
         return res.status(401).json({ error: "Invalid admin credentials" });
       }
+
+
     }
 
     if (!userDoc) return res.status(404).json({ error: "User not found" });
@@ -86,7 +95,7 @@ router.post("/login", async (req, res) => {
       expiresIn: "1d",
     });
 
-    res.json({ token, role: userDoc.role, user: { _id: userDoc._id, name: userDoc.name, email: userDoc.email} });
+    res.json({ token, role: userDoc.role, user: { _id: userDoc._id, name: userDoc.name, email: userDoc.email } });
   } catch (err) {
     res.status(500).json({ error: "Login failed", details: err.message });
   }

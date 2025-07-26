@@ -41,7 +41,7 @@ const UserProfile = () => {
 
     try {
       setLoading(true);
-      await API.delete(`/book/${bookingId}`);
+      await API.delete(`/bookings/${bookingId}`);
       toast.success("Booking cancelled successfully");
       fetchBookings(); // Refresh booking list
     } catch (err) {

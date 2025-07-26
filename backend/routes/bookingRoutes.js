@@ -71,6 +71,17 @@ router.put("/booking/:id/status", async (req, res) => {
   }
 });
 
+// DELETE: Cancel a booking
+router.delete("/bookings/:id", async (req, res) => {
+  try {
+    await Booking.findByIdAndDelete(req.params.id);
+    res.json({ message: "Booking cancelled successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to cancel booking" });
+  }
+});
+
+
 
 
 module.exports = router;

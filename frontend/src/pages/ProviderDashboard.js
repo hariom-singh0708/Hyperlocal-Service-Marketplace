@@ -63,18 +63,26 @@ const ProviderDashboard = () => {
     }
   };
 
-  const handleEditSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const updated = { ...form, services: form.services.split(",").map(s => s.trim()) };
-      await API.put(`/search/${providerId}`, updated);
-      toast.success("Profile updated!");
-      setEditing(false);
-      fetchProvider();
-    } catch {
-      toast.error("Update failed");
-    }
-  };
+const handleEditSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const updated = {
+      ...form,
+      services: Array.isArray(form.services)
+        ? form.services
+        : form.services.split(",").map((s) => s.trim()),
+    };
+
+    await API.put(`/search/${providerId}`, updated);
+    toast.success("Profile updated!");
+    setEditing(false);
+    fetchProvider();
+  } catch (err) {
+    console.error("Update error:", err);
+    toast.error("Update failed");
+  }
+};
+
 
   return (
     <div className="container py-5">
@@ -130,12 +138,13 @@ const ProviderDashboard = () => {
             </div>
             <div className="col-md-6">
               <input
-                name="services"
-                className="form-control"
-                value={form.services || ""}
-                onChange={(e) => setForm({ ...form, services: e.target.value })}
-                placeholder="e.g. Plumber, Electrician"
-              />
+  name="services"
+  className="form-control"
+  value={Array.isArray(form.services) ? form.services.join(", ") : form.services || ""}
+  onChange={(e) => setForm({ ...form, services: e.target.value })}
+  placeholder="e.g. Plumber, Electrician"
+/>
+
             </div>
             <div className="col-12 text-end">
               <button className="btn btn-success" type="submit">

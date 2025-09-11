@@ -1,0 +1,35 @@
+/* In App.css or a new custom CSS file */
+
+.hover-zoom {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-zoom:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.btn-animated {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-animated:hover {
+  transform: translateY(-2px);
+  background-color: #f5c542;
+}
+
+.fade-in {
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

@@ -19,7 +19,7 @@ app.use("/api", require("./routes/bookingRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
 
 app.get("/", (req,res)=>{
-  res.send("Server is Running smoothly on the webhooks...!")
+  res.send("Server is Running smoothly on the webhooks by the hariom singh...!")
 })
 
 app.listen(5000, () => console.log("Server running on port 5000"));
